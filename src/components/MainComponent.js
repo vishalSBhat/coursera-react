@@ -10,6 +10,8 @@ import Dish from './Dish';
 import {
     DISHES
 } from '../shared/dishes';
+import Header from './Header';
+import Footer from './Footer';
 
 export default class Main extends Component {
 
@@ -31,13 +33,7 @@ export default class Main extends Component {
         return ( <
             div >
             <
-            Navbar dark color = "primary" >
-            <
-            div className = "container" >
-            <
-            NavbarBrand href = "/" > Ristorante Con Fusion < /NavbarBrand> < /
-            div > <
-            /Navbar> <
+            Header / > <
             Menu dishes = {
                 this.state.dishes
             }
@@ -48,7 +44,8 @@ export default class Main extends Component {
             Dish dish = {
                 this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]
             }
-            /> < /
+            />  <
+            Footer / > < /
             div >
         );
     }
