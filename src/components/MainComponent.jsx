@@ -8,6 +8,7 @@ import { LEADERS } from "../shared/leaders";
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
+import Dish from "./Dish";
 import Contact from "./Contact";
 
 export default class Main extends Component {
@@ -39,6 +40,21 @@ export default class Main extends Component {
       );
     };
 
+    const DishWithId = ({ match }) => {
+      return (
+        <Dish
+          dish={
+            this.state.dishes.filter(
+              (dish) => dish.id === parseInt(match.params.dishId, 10)
+            )[0]
+          }
+          comments={this.state.comments.filter(
+            (comment) => comment.dishId === parseInt(match.params.dishId, 10)
+          )}
+        />
+      );
+    };
+
     return (
       <div>
         <Header />
@@ -50,6 +66,7 @@ export default class Main extends Component {
             path="/menu"
             component={() => <Menu dishes={this.state.dishes} />}
           />
+          <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />} />
           <Redirect to="/home" />{" "}
         </Switch>
