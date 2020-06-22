@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { actions } from "react-redux-form";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Menu from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -88,28 +89,36 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Switch>
-          {" "}
-          <Route path="/home" component={HomePage} />{" "}
-          <Route
-            exact
-            path="/menu"
-            component={() => <Menu dishes={this.props.dishes} />}
-          />
-          <Route path="/menu/:dishId" component={DishWithId} />
-          <Route
-            path="/aboutus"
-            component={() => <About leaders={this.props.leaders} />}
-          />
-          <Route
-            exact
-            path="/contactus"
-            component={() => (
-              <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
-            )}
-          />
-          <Redirect to="/home" />{" "}
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition
+            key={this.props.location.key}
+            classNames="page"
+            timeout={300}
+          >
+            <Switch>
+              {" "}
+              <Route path="/home" component={HomePage} />{" "}
+              <Route
+                exact
+                path="/menu"
+                component={() => <Menu dishes={this.props.dishes} />}
+              />
+              <Route path="/menu/:dishId" component={DishWithId} />
+              <Route
+                path="/aboutus"
+                component={() => <About leaders={this.props.leaders} />}
+              />
+              <Route
+                exact
+                path="/contactus"
+                component={() => (
+                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                )}
+              />
+              <Redirect to="/home" />{" "}
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />{" "}
       </div>
     );
