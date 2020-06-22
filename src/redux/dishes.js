@@ -1,10 +1,26 @@
-import {
-    DISHES
-} from '../shared/dishes';
-
-export const Dishes = (state = DISHES, action) => {
+import * as ActionTypes from './actionTypes';
+export const Dishes = (state = {
+    isLoading: true,
+    error: null,
+    dishes: []
+}, action) => {
     switch (action.type) {
-        default:
-            return state;
+        case ActionTypes.ADD_DISHES:
+            return {
+                ...state, isLoading: false, error: null, dishes: action.payload
+            }
+
+            case ActionTypes.DISHES_LOADING:
+                return {
+                    ...state, isLoading: true, error: null, dishes: []
+                }
+
+                case ActionTypes.DISHES_FAILED:
+                    return {
+                        ...state, isLoading: false, error: action.payload, dishes: []
+                    }
+
+                    default:
+                        return state;
     }
 };
